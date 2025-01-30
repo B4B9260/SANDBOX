@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
@@ -16,7 +17,10 @@ public class DriveSubsystem extends SubsystemBase {
     private final WPI_VictorSPX rightDrive = new WPI_VictorSPX(driveMotors.kRightDrive);
     private final WPI_VictorSPX rightFollower = new WPI_VictorSPX(driveMotors.kRightFollower);
 
-    DifferentialDrive differentialDrive = new DifferentialDrive(leftDrive, rightDrive);
+    private final DifferentialDrive differentialDrive = new DifferentialDrive(leftDrive, rightDrive);
+
+    double drive;
+    double turn;
 
 
     public DriveSubsystem() {
@@ -38,7 +42,10 @@ public class DriveSubsystem extends SubsystemBase {
     public Command set(double drive, double turn){
         return runEnd(
             () -> {
-                differentialDrive.arcadeDrive(drive, turn);
+                this.drive = drive;
+                this.turn = turn;
+                SmartDashboard.putNumber("Drive",this.drive);
+                differentialDrive.arcadeDrive(this.drive, this.turn);
             },
             () -> {
                 differentialDrive.stopMotor();

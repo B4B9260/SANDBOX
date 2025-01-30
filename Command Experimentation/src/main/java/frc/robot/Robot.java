@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import static edu.wpi.first.units.Units.Kilo;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -27,13 +29,13 @@ public class Robot extends TimedRobot {
     defaultCommands();
   }
 
-  private void configureBindings(){
+  public void configureBindings(){
     //controller.leftTrigger().whileTrue(driveSubsystem.reducedDrive(controller.getLeftY(), controller.getRightX()));
 
   }
 
-  private void defaultCommands(){
-    driveSubsystem.setDefaultCommand(driveSubsystem.set(controller.getLeftY(), controller.getRightX()));
+  public void defaultCommands(){
+    driveSubsystem.setDefaultCommand(driveSubsystem.set(controller.getLeftY(),controller.getRightX()));
     controller.a().whileTrue(driveSubsystem.driveForward());
   }
 
@@ -44,7 +46,6 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
-    driveSubsystem.set(controller.getLeftY(),controller.getRightX());
   }
 
   @Override
