@@ -12,15 +12,20 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.XboxController;
 
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.Limelight;
+import frc.robot.subsystems.ShooterSubsystem;
 
 public class Robot extends TimedRobot {
 
-  private final CommandXboxController controller = new CommandXboxController(0);
+  public final CommandXboxController controller = new CommandXboxController(0);
   //private final XboxController controller = new XboxController(0);
   private final DriveSubsystem driveSubsystem = new DriveSubsystem();
+  private final Limelight limelight = new Limelight();
+  private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
 
   private Command m_autonomousCommand;
 
@@ -31,7 +36,8 @@ public class Robot extends TimedRobot {
 
   public void configureBindings(){
     //controller.leftTrigger().whileTrue(driveSubsystem.reducedDrive(controller.getLeftY(), controller.getRightX()));
-
+    controller.rightTrigger().whileTrue(limelight.getID());
+    controller.x().whileTrue(shooterSubsystem.intakeWithID());
   }
 
   public void defaultCommands(){
@@ -46,6 +52,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
+
   }
 
   @Override

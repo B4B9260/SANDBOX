@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -17,7 +18,11 @@ public class DriveSubsystem extends SubsystemBase {
     private final WPI_VictorSPX rightDrive = new WPI_VictorSPX(driveMotors.kRightDrive);
     private final WPI_VictorSPX rightFollower = new WPI_VictorSPX(driveMotors.kRightFollower);
 
+    private final Limelight limelight = new Limelight();
+
     private final DifferentialDrive differentialDrive = new DifferentialDrive(leftDrive, rightDrive);
+
+    private final PIDController autoAlignPID = new PIDController(0.5,0,0);
 
     double drive;
     double turn;
@@ -34,7 +39,6 @@ public class DriveSubsystem extends SubsystemBase {
     }
 
     @Override
-
     public void periodic() {
 
     }
@@ -71,6 +75,19 @@ public class DriveSubsystem extends SubsystemBase {
             },
             () -> {
                 differentialDrive.stopMotor();
+            }
+        );
+    }
+
+    public Command autoAlign(){
+        return runEnd(
+            () -> {
+                if (limelight.getTID()==7){
+
+                }
+            },
+            () -> {
+
             }
         );
     }
