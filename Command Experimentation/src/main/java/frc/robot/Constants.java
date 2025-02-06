@@ -11,4 +11,15 @@ public class Constants {
     public static final int kRightFollower = 2;
     }
 
+    public class aprilTagStats{
+        //Measurements in inches
+        public static final double tag1Height = 58.5; 
+        public static final double tag3Height = 51.125;
+        public static final double tag7Height = 13;
+    }
+
+    public class limelight{
+        public static final double limelightHeight = 3.3125;
+    }
+
 }

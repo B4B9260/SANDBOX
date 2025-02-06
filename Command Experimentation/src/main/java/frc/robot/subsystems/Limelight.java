@@ -4,6 +4,9 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -33,6 +36,12 @@ public class Limelight extends SubsystemBase {
     NetworkTableEntry tv = limelightTable.getEntry("tv");
     NetworkTableEntry ta = limelightTable.getEntry("ta");
     NetworkTableEntry tid = limelightTable.getEntry("tid");
+    NetworkTableEntry botpose = limelightTable.getEntry("botpose_wpired");
+    /* double[] temp = {0,0,0,0,0,0};
+    double[] result = botpose.getDoubleArray(temp);
+    Translation3d tran3d = new Translation3d(result[0],result[1],result[2]);
+    Rotation3d r3d = new Rotation3d(result[3],result[4],result[5]);
+    Pose3d p3d = new Pose3d(tran3d,r3d); */
 
     public long currentID = tid.getInteger(-1);
 
@@ -51,6 +60,7 @@ public class Limelight extends SubsystemBase {
                 SmartDashboard.putNumber("ID 2", tid.getInteger(-1));
                 SmartDashboard.putNumber("Target Acquired:", ta.getDouble(0));
                 SmartDashboard.putNumber("Horizontal Offset", tx.getDouble(0));
+                SmartDashboard.putNumberArray("botpose",botpose.getDoubleArray(new double[6]));
             }
         );
 
